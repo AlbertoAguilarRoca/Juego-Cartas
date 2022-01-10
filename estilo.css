@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+}
+
+
+.contenedor {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 950px;
+    margin: auto;
+}
+
+
+
+.carta {
+    flex: 45%;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: auto;
+    width: 200px;
+    height: 306px;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+}
+
+.front, .back {
+    border: 1px solid black;
+    border-radius: 15px;
+    position: absolute;
+    width: 200px;
+    height: 306px;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cover {
+    width: 100%;
+    height: 100%;
+    background-image: url('img/reverso-baraja.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.front {
+    color: black;
+
+}
+
+.back {
+    background-color: #0000ff;
+    color: black;
+    transform: rotateY(180deg);
+}
+
+.back img {
+    width: 50%;
+}
+
+@media (min-width: 700px) {
+
+    .carta {
+        flex: 20% !important;
+    }
+
+}
