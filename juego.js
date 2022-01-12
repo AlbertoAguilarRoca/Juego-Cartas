@@ -10,8 +10,11 @@ document.querySelectorAll('.carta').forEach(item => {
         if (girada) {
             // Y si no es la misma carta girada
             if (carta1 != item.id) {
+            // Guarda en la variable el id
             carta2 = item.id;
+            // Le da la vuelta a la carta con dicho id
             girarCarta(carta2);
+            // Se quedan ambas cartas 1 segundo descubiertas y se llama a comprobarCartas()
             setTimeout(comprobarCartas, 1000);
             }
         }
