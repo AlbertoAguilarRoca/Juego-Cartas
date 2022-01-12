@@ -2,6 +2,7 @@
 var girada = false;
 var carta1;
 var carta2;
+var intentos = 0;
 
 document.querySelectorAll('.carta').forEach(item => {
     item.addEventListener("click", function() {   
@@ -44,4 +45,7 @@ function comprobarCartas() {
     girarCarta(carta1);
     girarCarta(carta2);
     girada = false;
+
+    intentos++;
+    document.getElementById("nIntentos").innerHTML = intentos;
 }

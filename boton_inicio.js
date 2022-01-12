@@ -4,4 +4,5 @@ let boton = document.querySelector("#boton");
 boton.addEventListener("click", function() {
     boton.style.display = "none";
     document.querySelector("#contenedor").style.display = "flex";
+    document.getElementById("intentos").removeAttribute("style");
 });
