@@ -5,4 +5,5 @@ boton.addEventListener("click", function() {
     boton.style.display = "none";
     document.querySelector("#contenedor").style.display = "flex";
     document.getElementById("intentos").removeAttribute("style");
+    document.getElementById("puntos").removeAttribute("style");
 });
