@@ -43,9 +43,9 @@ function generaCartas() {
 
 //Duplica las cartas de un array y las baraja
 function duplicaCartas(arr) {
-    total = arr.length;
+    let total = arr.length;
     arr.forEach(function (item, i) {
         arr[i + total] = arr[i];
     });
-    return arr.sort(function (a, b) { return 0.5 - Math.random() });
+    return arr.sort(function (a, b) {return 0.5 - Math.random()});
 }
