@@ -1,27 +1,26 @@
-
 const baraja = document.querySelectorAll('.back');
 const mazo = duplicaCartas(generaCartas());
 
 //Recorremos todas las cartas para insertarle la imagen
-baraja.forEach(function (carta, i) {
-    const img = document.createElement('img');
-    img.src = mazo[i].url;
-    let data_id = document.createAttribute('data-id');
-    data_id.value = mazo[i].id;
-    img.setAttributeNode(data_id);
-
-    let data_status = document.createAttribute('data-status');
-    data_status.value = mazo[i].status;
-    img.setAttributeNode(data_status);
-
-    carta.appendChild(img);
-});
-
+function asignarImagen() {
+    baraja.forEach(function (carta, i) {
+        const img = document.createElement('img');
+        img.src = mazo[i].url;
+        let data_id = document.createAttribute('data-id');
+        data_id.value = mazo[i].id;
+        img.setAttributeNode(data_id);
+    
+        let data_status = document.createAttribute('data-status');
+        data_status.value = mazo[i].status;
+        img.setAttributeNode(data_status);
+    
+        carta.appendChild(img);
+    });
+}
 
 //Genera un mazo de cartas. en este caso de la mitad de cartas
 //que hay en el index
 function generaCartas() {
-    
     const mazo = [];
     for (let i = 0; i < baraja.length / 2; i++) {
         let numero = Math.floor((Math.random() * (19 - 0 + 1)) + 0);
@@ -32,11 +31,8 @@ function generaCartas() {
             console.log('Entro en while');
             numero = Math.floor((Math.random() * (19 - 0 + 1)) + 0);
             encontrado = mazo.find(i => i === cartas[numero]);
-
         }
-    
         mazo.push(cartas[numero]);
-
     }
     return mazo;
 }
