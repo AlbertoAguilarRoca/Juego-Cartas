@@ -5,6 +5,7 @@ var carta2;
 var intentos = 0;
 var puntos = 0;
 
+
 document.querySelectorAll('.carta').forEach(item => {
     item.addEventListener("click", function() {   
 
@@ -98,7 +99,13 @@ function ComprobarFin() {
             // Es decir, todos deberian estar en true, se han encontrado todas
             // las parejas y termina el juego
             if (contadorAcertados == mazo.length) {
-                alert("Partida Ganada");
+                var tiempoTotal = document.getElementById("nTiempo");
+                alert(`Enhorabuena. Has necesitado ${intentos} intentos y 
+                ${tiempoTotal.innerText} de tiempo.`);
+
+                juegoIniciado = false;
+                tiempoTotal.innerText = '00:00:00';
             }
         }
 }
+
