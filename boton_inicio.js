@@ -2,6 +2,7 @@
 let boton = document.querySelector("#boton");
 
 boton.addEventListener("click", function() {
+    iniciarPartida();
     boton.style.display = "none";
     document.querySelector("#contenedor").style.display = "flex";
     document.getElementById("intentos").removeAttribute("style");

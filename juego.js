@@ -5,44 +5,46 @@ var carta2;
 var intentos = 0;
 var puntos = 0;
 
-document.querySelectorAll('.carta').forEach(item => {
-    item.addEventListener("click", function() {   
-
-        // Si una carta ha sido girada
-        if (girada) {
-            // Guarda en la variable el id
-            carta2 = item.id;
-
-            // Primero comprueba que el status de la carta no sea true
-            if (!mazo[carta2-1].status) {
-                // Y si no es la misma carta girada
-                if (carta1 != item.id) {
-                    // Le da la vuelta a la carta con dicho id
-                    girarCarta(carta2);
-                    // Se quedan ambas cartas 1 segundo descubiertas y se llama a comprobarCartas()
-                    setTimeout(comprobarCartas, 1000);
+function juego(mazo) {
+    let mazoPartida = mazo;
+    document.querySelectorAll('.carta').forEach(item => {
+        item.addEventListener("click", function() {   
+            // Si una carta ha sido girada
+            if (girada) {
+                // Guarda en la variable el id
+                carta2 = item.id;
+                idCarta1 = item.getAttribute("data-id"); 
+                // Primero comprueba que el status de la carta no sea true
+                if (!mazoPartida[carta2-1].status) {
+                    // Y si no es la misma carta girada
+                    if (carta1 != item.id) {
+                        // Le da la vuelta a la carta con dicho id
+                        girarCarta(carta2);
+                        
+                        // Se quedan ambas cartas 1 segundo descubiertas y se llama a comprobarCartas()
+                        setTimeout(comprobarCartas(carta1, carta2), 1000);
+                    }
                 }
             }
-
-        }
-        // Si no se ha girado la primera carta
-        else {
-            // Guarda en la variable el id
-            carta1 = item.id;
-
-            // Primero comprueba que el status de la carta no sea true
-            if (!mazo[carta1-1].status) {
-                // Le da la vuelta a la carta con dicho id
-                girarCarta(carta1);
-                // girada en true para prosegir el juego
-                girada = true;
+    
+            // Si no se ha girado la primera carta
+            else {
+                // Guarda en la variable el id
+                carta1 = item.id;
+                // Primero comprueba que el status de la carta no sea true
+                if (!mazoPartida[carta1-1].status) {
+                    // Le da la vuelta a la carta con dicho id
+                    girarCarta(carta1);
+                    // girada en true para prosegir el juego
+                    girada = true;
+                }
             }
-        }
-        
+        });
     });
-});
+}
 
 function girarCarta(id) {  
+    alert(id);
     if(document.getElementById(id).style.transform == "rotateY(180deg)") {
         document.getElementById(id).style.transform = "none";
     }else {
@@ -51,11 +53,10 @@ function girarCarta(id) {
 }
 
 // Funcion comprobarCartas() que hace lo siguiente
-function comprobarCartas() {
-
+function comprobarCartas(carta1, carta2) {
     // Se comprueba si el id de las cartas dadas la vuelta sean iguales
     // En caso de que sean iguales (se ha acertado la pareja):
-    if (mazo[carta1-1].id == mazo[carta2-1].id) {
+    if (carta1 == carta2) {
 
         // Suma 1 punto y actualiza el marcador de puntos
         puntos++;
@@ -63,11 +64,12 @@ function comprobarCartas() {
 
         // En el array de objetos del mazo de cartas se establece que el
         // status sea true para que no puedan ser dada la vuelta
-        mazo[carta1-1].status = true;
-        mazo[carta2-1].status = true;
+        carta1 = document.getElementById(carta1);
+        carta2 = document.getElementById(carta2);
+        carta1.status = true;
+        carta2.status = true;
 
         ComprobarFin();
-
     }
     else {
         // Si no son iguales (no se ha acertado la pareja)

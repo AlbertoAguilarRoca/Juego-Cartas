@@ -1,8 +1,13 @@
-const baraja = document.querySelectorAll('.back');
-const mazo = duplicaCartas(generaCartas());
+
+function iniciarPartida() {
+    const baraja = document.querySelectorAll('.back');
+    const mazo = duplicaCartas(generaCartas(baraja));
+    asignarImagen(baraja, mazo);
+    juego(mazo);
+}
 
 //Recorremos todas las cartas para insertarle la imagen
-function asignarImagen() {
+function asignarImagen(baraja, mazo) {
     baraja.forEach(function (carta, i) {
         const img = document.createElement('img');
         img.src = mazo[i].url;
@@ -20,7 +25,7 @@ function asignarImagen() {
 
 //Genera un mazo de cartas. en este caso de la mitad de cartas
 //que hay en el index
-function generaCartas() {
+function generaCartas(baraja) {
     const mazo = [];
     for (let i = 0; i < baraja.length / 2; i++) {
         let numero = Math.floor((Math.random() * (19 - 0 + 1)) + 0);
