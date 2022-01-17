@@ -100,7 +100,13 @@ function ComprobarFin() {
             // Es decir, todos deberian estar en true, se han encontrado todas
             // las parejas y termina el juego
             if (contadorAcertados == mazo.length) {
-                alert("Partida Ganada");
+                var tiempoTotal = document.getElementById("nTiempo");
+                alert(`Enhorabuena. Has necesitado ${intentos} intentos y 
+                ${tiempoTotal.innerText} de tiempo.`);
+
+                juegoIniciado = false;
+                tiempoTotal.innerText = '00:00:00';
             }
         }
 }
+
