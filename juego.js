@@ -1,28 +1,26 @@
-// Para llevar la cuenta de la carta girada
 var girada = false;
-var carta1;
-var carta2;
 var intentos = 0;
 var puntos = 0;
 
 function juego(mazo) {
-    let mazoPartida = mazo;
+    
+    var carta1;
+    var carta2;
+
     document.querySelectorAll('.carta').forEach(item => {
         item.addEventListener("click", function() {   
             // Si una carta ha sido girada
             if (girada) {
                 // Guarda en la variable el id
                 carta2 = item.id;
-                idCarta1 = item.getAttribute("data-id"); 
                 // Primero comprueba que el status de la carta no sea true
-                if (!mazoPartida[carta2-1].status) {
+                if (!mazo[carta2-1].status) {
                     // Y si no es la misma carta girada
                     if (carta1 != item.id) {
                         // Le da la vuelta a la carta con dicho id
                         girarCarta(carta2);
-                        
                         // Se quedan ambas cartas 1 segundo descubiertas y se llama a comprobarCartas()
-                        setTimeout(comprobarCartas(carta1, carta2), 1000);
+                        setTimeout(comprobarCartas, 1000, mazo, carta1, carta2);
                     }
                 }
             }
@@ -32,7 +30,7 @@ function juego(mazo) {
                 // Guarda en la variable el id
                 carta1 = item.id;
                 // Primero comprueba que el status de la carta no sea true
-                if (!mazoPartida[carta1-1].status) {
+                if (!mazo[carta1-1].status) {
                     // Le da la vuelta a la carta con dicho id
                     girarCarta(carta1);
                     // girada en true para prosegir el juego
@@ -44,7 +42,6 @@ function juego(mazo) {
 }
 
 function girarCarta(id) {  
-    alert(id);
     if(document.getElementById(id).style.transform == "rotateY(180deg)") {
         document.getElementById(id).style.transform = "none";
     }else {
@@ -53,10 +50,10 @@ function girarCarta(id) {
 }
 
 // Funcion comprobarCartas() que hace lo siguiente
-function comprobarCartas(carta1, carta2) {
+function comprobarCartas(mazo, carta1, carta2) {
     // Se comprueba si el id de las cartas dadas la vuelta sean iguales
     // En caso de que sean iguales (se ha acertado la pareja):
-    if (carta1 == carta2) {
+    if (mazo[carta1-1].id == mazo[carta2-1].id) {
 
         // Suma 1 punto y actualiza el marcador de puntos
         puntos++;
@@ -64,12 +61,9 @@ function comprobarCartas(carta1, carta2) {
 
         // En el array de objetos del mazo de cartas se establece que el
         // status sea true para que no puedan ser dada la vuelta
-        carta1 = document.getElementById(carta1);
-        carta2 = document.getElementById(carta2);
-        carta1.status = true;
-        carta2.status = true;
+        mazo[carta1-1].status = true;
+        mazo[carta2-1].status = true;
 
-        ComprobarFin();
     }
     else {
         // Si no son iguales (no se ha acertado la pareja)
@@ -84,10 +78,12 @@ function comprobarCartas(carta1, carta2) {
     // Suma un intento aunque haya acertado o no una pareja y actualiza el marcador
     intentos++;
     document.getElementById("nIntentos").innerHTML = intentos;
+
+    ComprobarFin(mazo);
 }
 
 // Funcion ComprobarFin() que hace lo siguiente
-function ComprobarFin() {
+function ComprobarFin(mazo) {
     // Esta variable actua como contador de todos los true que tenga el array de objetos mazo[]
     var contadorAcertados = 0;
         // Se recorre el array mazo haciendo lo siguiente
@@ -100,6 +96,9 @@ function ComprobarFin() {
             // Es decir, todos deberian estar en true, se han encontrado todas
             // las parejas y termina el juego
             if (contadorAcertados == mazo.length) {
+                document.getElementById("contenedor").style.display = "none";
+                document.getElementById("popup").style.display = "flex";
+
                 var tiempoTotal = document.getElementById("nTiempo");
                 alert(`Enhorabuena. Has necesitado ${intentos} intentos y 
                 ${tiempoTotal.innerText} de tiempo.`);
@@ -108,5 +107,6 @@ function ComprobarFin() {
                 tiempoTotal.innerText = '00:00:00';
             }
         }
+        
 }
 
