@@ -15,8 +15,10 @@ body {
     position: absolute;
     border-radius: 15px;
     background-color: lightgray;
-    width: 40%;
-    height: 30vh;
+    min-width: 227px; 
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px;
 }
 
 #boton_reinicio {
@@ -27,7 +29,8 @@ body {
     border-radius: 15px;
     width: 150px;
     height: 50px;
-    margin-top: 50px;
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 #mensaje_popup {
@@ -44,8 +47,7 @@ h1 #mensaje_popup {
     align-items: center;
     flex-wrap: wrap;
     max-width: 950px;
-    margin: auto;
-    
+    margin: auto; 
 }
 
 #boton {
@@ -74,7 +76,6 @@ h1 #mensaje_popup {
     height: 306px;
     transition: transform 1s;
     transform-style: preserve-3d;
-    
 }
 
 .front, .back {
@@ -118,7 +119,6 @@ h1 #mensaje_popup {
     }
 
 }
-
 
 @media (max-width: 620px) {
 
