@@ -99,9 +99,11 @@ function ComprobarFin(mazo) {
                 document.getElementById("contenedor").style.display = "none";
                 document.getElementById("popup").style.display = "flex";
 
+                var mensajeFinal = document.getElementById('resultado-juego');
                 var tiempoTotal = document.getElementById("nTiempo");
-                alert(`Enhorabuena. Has necesitado ${intentos} intentos y 
-                ${tiempoTotal.innerText} de tiempo.`);
+                
+                mensajeFinal.innerText = `Enhorabuena. Has necesitado ${intentos} intentos y 
+                ${tiempoTotal.innerText} de tiempo.`;
 
                 juegoIniciado = false;
                 tiempoTotal.innerText = '00:00:00';
