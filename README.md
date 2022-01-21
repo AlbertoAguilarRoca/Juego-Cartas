@@ -1,2 +1,2 @@
 # juego-Cartas
-Juego de Cartas en TypeScrips para Entorno Cliente.
+Juego de Cartas en JavaScript para Entorno Cliente.
