@@ -3,7 +3,7 @@ function iniciarPartida() {
     const baraja = document.querySelectorAll('.back');
     const mazo = duplicaCartas(generaCartas(baraja));
     asignarImagen(baraja, mazo);
-    juego(mazo);
+    juego();
 }
 
 //Recorremos todas las cartas para insertarle la imagen

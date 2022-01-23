@@ -2,37 +2,37 @@ var girada = false;
 var intentos = 0;
 var puntos = 0;
 
-function juego(mazo) {
+function juego() {
     
-    var carta1;
-    var carta2;
+    var carta1_div;
+    var carta2_div;
 
     document.querySelectorAll('.carta').forEach(item => {
         item.addEventListener("click", function() {   
             // Si una carta ha sido girada
             if (girada) {
-                // Guarda en la variable el id
-                carta2 = item.id;
+                // Guarda en la variable el id del div
+                carta2_div = item.id;
                 // Primero comprueba que el status de la carta no sea true
-                if (!mazo[carta2-1].status) {
+                if (document.getElementById(item.id).childNodes[3].lastChild.getAttribute("data-status") == "false") {
                     // Y si no es la misma carta girada
-                    if (carta1 != item.id) {
+                    if (carta1_div != carta2_div) {
                         // Le da la vuelta a la carta con dicho id
-                        girarCarta(carta2);
+                        girarCarta(carta2_div);
                         // Se quedan ambas cartas 1 segundo descubiertas y se llama a comprobarCartas()
-                        setTimeout(comprobarCartas, 1000, mazo, carta1, carta2);
+                        setTimeout(comprobarCartas, 1000, carta1_div, carta2_div);
                     }
                 }
             }
     
             // Si no se ha girado la primera carta
             else {
-                // Guarda en la variable el id
-                carta1 = item.id;
-                // Primero comprueba que el status de la carta no sea true
-                if (!mazo[carta1-1].status) {
+                // Guarda en la variable el id del div
+                carta1_div = item.id;
+                // Primero comprueba que el status de la carta no sea true // No coge el data-status como booleana, sino como string
+                if (document.getElementById(item.id).childNodes[3].lastChild.getAttribute("data-status") == "false") {
                     // Le da la vuelta a la carta con dicho id
-                    girarCarta(carta1);
+                    girarCarta(carta1_div);
                     // girada en true para prosegir el juego
                     girada = true;
                 }
@@ -50,10 +50,12 @@ function girarCarta(id) {
 }
 
 // Funcion comprobarCartas() que hace lo siguiente
-function comprobarCartas(mazo, carta1, carta2) {
+function comprobarCartas(carta1_div, carta2_div) {
+    var carta1_id = document.getElementById(carta1_div).childNodes[3].lastChild.getAttribute("data-id");
+    var carta2_id = document.getElementById(carta2_div).childNodes[3].lastChild.getAttribute("data-id");
     // Se comprueba si el id de las cartas dadas la vuelta sean iguales
     // En caso de que sean iguales (se ha acertado la pareja):
-    if (mazo[carta1-1].id == mazo[carta2-1].id) {
+    if (carta1_id == carta2_id) {
 
         // Suma 1 punto y actualiza el marcador de puntos
         puntos++;
@@ -61,15 +63,15 @@ function comprobarCartas(mazo, carta1, carta2) {
 
         // En el array de objetos del mazo de cartas se establece que el
         // status sea true para que no puedan ser dada la vuelta
-        mazo[carta1-1].status = true;
-        mazo[carta2-1].status = true;
+        document.getElementById(carta1_div).childNodes[3].lastChild.setAttribute("data-status", "true");
+        document.getElementById(carta2_div).childNodes[3].lastChild.setAttribute("data-status", "true");
 
     }
     else {
         // Si no son iguales (no se ha acertado la pareja)
         // simplemente se les da la vuelta para seguir jugando
-        girarCarta(carta1);
-        girarCarta(carta2);
+        girarCarta(carta1_div);
+        girarCarta(carta2_div);
     }
 
     // Esta variable se pasa a false para continuar el juego
@@ -79,23 +81,19 @@ function comprobarCartas(mazo, carta1, carta2) {
     intentos++;
     document.getElementById("nIntentos").innerHTML = intentos;
 
-    ComprobarFin(mazo);
+    ComprobarFin();
 }
 
-// Funcion ComprobarFin() que hace lo siguiente
-function ComprobarFin(mazo) {
-    // Esta variable actua como contador de todos los true que tenga el array de objetos mazo[]
+
+function ComprobarFin() {
+    var nCartas = document.querySelectorAll('.carta').length;
     var contadorAcertados = 0;
-        // Se recorre el array mazo haciendo lo siguiente
-        for (let i = 0; i < mazo.length; i++) {
-            // Si el status de i es true suma 1 a la variable
-            if (mazo[i].status) {
+        for (let i = 1; i <= nCartas; i++) {
+            if (document.getElementById(i).childNodes[3].lastChild.getAttribute("data-status") == "true") {
                 contadorAcertados++;
             }
-            // Si el numero de contadorAcertados es igual a la longitud del array
-            // Es decir, todos deberian estar en true, se han encontrado todas
-            // las parejas y termina el juego
-            if (contadorAcertados == mazo.length) {
+
+            if (contadorAcertados == nCartas) {
                 document.getElementById("contenedor").style.display = "none";
                 document.getElementById("popup").style.display = "flex";
 
