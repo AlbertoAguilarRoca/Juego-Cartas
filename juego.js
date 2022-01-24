@@ -84,15 +84,21 @@ function comprobarCartas(carta1_div, carta2_div) {
     ComprobarFin();
 }
 
-
+// Funcion ComprobarFin que hace lo siguiente
 function ComprobarFin() {
+    // Guardar en la variable el numero de cartas
     var nCartas = document.querySelectorAll('.carta').length;
+    // Contador de todos los true que haya
     var contadorAcertados = 0;
+        // Bucle que recorre las cartas buscando los true
         for (let i = 1; i <= nCartas; i++) {
             if (document.getElementById(i).childNodes[3].lastChild.getAttribute("data-status") == "true") {
                 contadorAcertados++;
             }
 
+            // Cuando todas las cartas tienen true acaba el juego
+            // mostrando un popup con informacion del tiempo gastado y el numero de intentos
+            // Y un boton de reiniciar el juego
             if (contadorAcertados == nCartas) {
                 document.getElementById("contenedor").style.display = "none";
                 document.getElementById("popup").style.display = "flex";
