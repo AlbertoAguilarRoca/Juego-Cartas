@@ -74,7 +74,7 @@ h1 #mensaje_popup {
     margin: auto;
     width: 200px;
     height: 306px;
-    transition: transform 1s;
+    transition: transform .5s;
     transform-style: preserve-3d;
 }
 
