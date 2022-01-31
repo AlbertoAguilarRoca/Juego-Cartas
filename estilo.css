@@ -21,6 +21,13 @@ body {
     padding: 10px;
 }
 
+#inicio {
+    border-radius: 15px;
+    background-color: lightgray;
+    min-width: 227px; 
+    padding: 10px;
+}
+
 #boton_reinicio {
     background-color: blue;
     color: white;
@@ -54,9 +61,10 @@ h1 #mensaje_popup {
     background-color: blue;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-    margin: auto;
+    margin-top: 10px;
     padding: 20px;
     border-radius: 15px;
+    text-align: center;
 }
 
 #boton:hover {
@@ -138,26 +146,21 @@ h1 #mensaje_popup {
     }
 }
 
-#intentos {
+
+#contadores {
+    display: none;
     position: absolute;
-    top: 2%;
+    top: 4%;
     left: 2%;
-    background-color: white;
+    background-color: lightgray;
     font-family: Arial, Helvetica, sans-serif;
+    border-radius: 10px;
+    padding: 10px;
 }
 
-#puntos {
-    position: absolute;
-    top: 6%;
-    left: 2%;
-    background-color: white;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-#tiempo {
-    position: absolute;
-    top: 10%;
-    left: 2%;
-    background-color: white;
-    font-family: Arial, Helvetica, sans-serif;
+#nombreJug, #dificultad {
+    border-radius: 15px;
+    width: 100%;
+    height: 2.5rem;
+    margin-bottom: 10px;
 }

@@ -9,15 +9,70 @@ const temporizador = document.getElementById('tiempo');
 var juegoIniciado = false;
 
 boton.addEventListener("click", function() {
-    iniciarPartida();
-    boton.style.display = "none";
-    document.querySelector("#contenedor").style.display = "flex";
-    document.getElementById("intentos").removeAttribute("style");
-    document.getElementById("puntos").removeAttribute("style");
-    temporizador.removeAttribute("style");
+    if (document.querySelector("#nombreJug").value == "") {
+        alert("Por favor, rellene su nombre.");
+        document.querySelector("#nombreJug").focus();
+    }
+    else {
+        establecerDificultad();
+        iniciarPartida();
+        document.querySelector("#inicio").style.display = "none";
+        document.querySelector("#contenedor").style.display = "flex";
+        /*document.getElementById("intentos").removeAttribute("style");
+        document.getElementById("puntos").removeAttribute("style");
+        document.getElementById("jugador").removeAttribute("style");
+        temporizador.removeAttribute("style");*/
+        document.querySelector("#contadores").style.display = "initial";
+        document.querySelector("#mensaje_nombre").innerHTML = document.querySelector("#nombreJug").value;
 
-    juegoIniciado = true;
+        juegoIniciado = true;
+    }
 });
+
+function establecerDificultad() {
+    let creadorDivsCartas = "";
+    let nCartas;
+    switch (document.getElementById("dificultad").value) {
+        case '1':
+            // facil
+            nCartas = 6;
+            break;
+
+        case '2':
+            // intermedio
+            nCartas = 8;
+            break;
+
+        case '3':
+            // dificil
+            nCartas = 10;
+            break;
+
+        case '4':
+            // muy dif
+            nCartas = 14;
+            break;
+    
+        default:
+            alert("error");
+            break;
+    }
+
+    for (let i = 1; i <= nCartas; i++) {
+
+        creadorDivsCartas += "<div id='"+i+"' class='carta'>";
+        creadorDivsCartas += "<div class='front'>";
+        creadorDivsCartas += "<div class='cover'>";
+        creadorDivsCartas += "</div>";
+        creadorDivsCartas += "</div>";
+        creadorDivsCartas += "<div class='back'>";
+        creadorDivsCartas += "</div>";
+        creadorDivsCartas += "</div>";
+        
+    }
+
+    document.getElementById("contenedor").innerHTML = creadorDivsCartas;
+}
 
 
 setInterval(incrementar, 1000);

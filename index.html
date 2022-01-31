@@ -11,15 +11,45 @@
     
 </head>
 <body>
-    <div id="boton">Iniciar Juego</div>
-    <div id="intentos" style="display: none;">Movimientos: <span id="nIntentos">0</span></div>
-    <div id="puntos" style="display: none;">Parejas: <span id="nPuntos">0</span></div>
-    <div id="tiempo" style="display: none;">Tiempo: <span id="nTiempo">0</span></div>
+    <div id="inicio">
+        <label for="nombreJug">Escribe tu Nombre&#58;</label>
+        <input type="text" id="nombreJug" autofocus>
+        <label for="dificultad">Selecciona la dificultad&#58;</label>
+        <select id="dificultad">
+            <option value="1">F&aacute;cil &#40;6 cartas&#44; 2 minutos&#41;</option>
+            <option value="2">Intermedio &#40;8 cartas&#44; 2 minutos&#41;</option>
+            <option value="3">D&iacute;ficil  &#40;10 cartas&#44; 3 minutos&#41;</option>
+            <option value="4">Muy D&iacute;ficil  &#40;14 cartas&#44; 3 minutos&#41;</option>
+        </select>
+        <div id="boton">Iniciar Juego</div>
+    </div>
+
+    <div id="contadores">
+        <table>
+            <tr>
+                <td>Jugador:</td>
+                <td id="mensaje_nombre"></td>
+            </tr>
+            <tr>
+                <td>Intentos:</td>
+                <td id="nIntentos">0</td>
+            </tr>
+            <tr>
+                <td>Puntos:</td>
+                <td id="nPuntos">0</td>
+            </tr>
+            <tr>
+                <td>Tiempo:</td>
+                <td id="nTiempo">0</td>
+            </tr>
+        </table>
+    </div>
+    
     <div id="contenedor">
 
         
 
-        <div id="1" class="carta">
+        <!-- <div id="1" class="carta">
             
                 <div class="front">
                     <div class="cover"></div>
@@ -105,14 +135,14 @@
                     
                 </div>
             
-        </div>
+        </div> -->
 
     </div><!--end contenedor-->
 
     <!-- Popup de partida terminada -->
     <div id="popup">
         <div id="mensaje_popup">
-            <h1>¡EnhoraBuena! Has terminado el juego.</h1>
+            <h1>¡Enhorabuena, <span id="mensaje_nombre"></span>! Has terminado el juego.</h1>
             <p id="resultado-juego"></p>
             <input type="button" id="boton_reinicio" value="Volver a inicio" onclick="location.reload()">
         </div> 
