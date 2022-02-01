@@ -18,11 +18,9 @@ boton.addEventListener("click", function() {
         iniciarPartida();
         document.querySelector("#inicio").style.display = "none";
         document.querySelector("#contenedor").style.display = "flex";
-        /*document.getElementById("intentos").removeAttribute("style");
-        document.getElementById("puntos").removeAttribute("style");
-        document.getElementById("jugador").removeAttribute("style");
-        temporizador.removeAttribute("style");*/
+        
         document.querySelector("#contadores").style.display = "initial";
+        document.querySelector("#nombreJugador").innerHTML = document.querySelector("#nombreJug").value;
         document.querySelector("#mensaje_nombre").innerHTML = document.querySelector("#nombreJug").value;
 
         juegoIniciado = true;

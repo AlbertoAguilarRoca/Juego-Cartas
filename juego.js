@@ -117,6 +117,7 @@ function comprobarJuegoFinalizado(mazo) {
             // Y un boton de reiniciar el juego
             if (contadorAcertados == nCartas) {
                 document.getElementById("contenedor").style.display = "none";
+                document.getElementById("contadores").style.display = "none";
                 document.getElementById("popup").style.display = "flex";
 
                 var mensajeFinal = document.getElementById('resultado-juego');
