@@ -123,7 +123,7 @@ function comprobarJuegoFinalizado(mazo) {
                 var mensajeFinal = document.getElementById('resultado-juego');
                 var tiempoTotal = document.getElementById("nTiempo");
                 
-                mensajeFinal.innerText = `Enhorabuena. Has necesitado ${intentos} intentos y 
+                mensajeFinal.innerText = `Enhorabuena. Has necesitado ${intentos} intentos, quedandote ${document.getElementById("nRegresivo").innerHTML} restante y 
                 ${tiempoTotal.innerText} de tiempo.`;
 
                 juegoIniciado = false;
