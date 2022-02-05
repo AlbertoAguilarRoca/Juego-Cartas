@@ -64,15 +64,20 @@ function comprobarCartas(mazo, carta1, carta2) {
     }
 }
 
+//Sumará dos puntos al marcador
+function sumarPuntos() {
+    puntos+=2;
+    document.getElementById("nPuntos").innerHTML = puntos;
+
+}
+
 // Funcion cartasGiradas() que hace lo siguiente
 function cartasGiradas(mazo, carta1, carta2) {
 
     // En caso de que sean iguales (se ha acertado la pareja):
     if (comprobarCartas(mazo, carta1, carta2)) {
 
-        // Suma 1 punto y actualiza el marcador de puntos
-        puntos++;
-        document.getElementById("nPuntos").innerHTML = puntos;
+        sumarPuntos();
 
         // En el array de objetos del mazo de cartas se establece que el
         // status sea true para que no puedan ser dada la vuelta
