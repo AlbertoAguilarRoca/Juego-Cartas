@@ -122,10 +122,26 @@ function comprobarJuegoFinalizado(mazo) {
 
                 var mensajeFinal = document.getElementById('resultado-juego');
                 var tiempoTotal = document.getElementById("nTiempo");
-                
-                mensajeFinal.innerText = `Enhorabuena. Has necesitado ${intentos} intentos, quedandote ${document.getElementById("nRegresivo").innerHTML} restante y 
-                ${tiempoTotal.innerText} de tiempo.`;
+                var puntuacionTotal;
 
+                switch(nCartas) {
+                    case 6: 
+                        puntuacionTotal = (nCartas+segundosRestantes)*1;
+                        break;
+                    case 8:
+                        puntuacionTotal = (nCartas+segundosRestantes)*2;
+                        break;
+                    case 10:
+                        puntuacionTotal = (nCartas+segundosRestantes)*3;
+                        break;
+                    case 14:
+                        puntuacionTotal = (nCartas+segundosRestantes)*4;
+                        break;
+                }
+
+                mensajeFinal.innerText = `Has completado el juego en un tiempo de ${tiempoTotal.innerText}, quedando ${document.getElementById("nRegresivo").innerHTML} y 
+                utilizando ${intentos} intentos por lo que tu puntuacion total es de ${puntuacionTotal} puntos.`;
+               
                 juegoIniciado = false;
                 tiempoTotal.innerText = '00:00:00';
             }

@@ -4,6 +4,7 @@ let boton = document.querySelector("#boton");
 var horas = 0;
 var minutos = 0;
 var segundos = 0;
+var segundosRestantes;
 
 var Mins;
 var Segs = 0;
@@ -37,24 +38,28 @@ function establecerDificultad() {
     switch (document.getElementById("dificultad").value) {
         case '1':
             // facil
+            segundosRestantes = 120;
             nCartas = 6;
             Mins = 2;
             break;
 
         case '2':
             // intermedio
+            segundosRestantes = 120;
             nCartas = 8;
             Mins = 2;
             break;
 
         case '3':
             // dificil
+            segundosRestantes = 180;
             nCartas = 10;
             Mins = 3;
             break;
 
         case '4':
             // muy dif
+            segundosRestantes = 180;
             nCartas = 14;
             Mins = 3;
             break;
@@ -92,6 +97,8 @@ function incrementar() {
     var tempSegundos = '';
 
     if(juegoIniciado) {
+
+        segundosRestantes--;
 
         if(segundos < 59) {
             segundos++;
