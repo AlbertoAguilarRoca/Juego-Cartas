@@ -12,8 +12,17 @@
 </head>
 <body>
     <div id="inicio">
-        <label for="nombreJug">Escribe tu Nombre&#58;</label>
-        <input type="text" id="nombreJug" autofocus>
+        <label for="totalJugadores">Número de jugadores</label>
+        <select id="totalJugadores">
+            <option value="1" default>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        <label for="nombreJug1">Nombre del jugador 1:</label>
+        <input type="text" id="nombreJug1" class="jugador" autofocus>
+        <div id="jugadores">
+            <!--Si hay varios jugadores se ponen aqui-->
+        </div>
         <label for="dificultad">Selecciona la dificultad&#58;</label>
         <select id="dificultad">
             <option value="1">F&aacute;cil &#40;6 cartas&#44; 2 minutos&#41;</option>
@@ -50,104 +59,26 @@
     </div>
     
     <div id="contenedor">
+        <!-- Aqui se imprimen las cartas -->
+    </div>
 
-        
-
-        <!-- <div id="1" class="carta">
-            
-                <div class="front">
-                    <div class="cover"></div>
-                </div>
-                <div class="back">
-                    
-                </div>
-
-        </div>
-
-        <div id="2" class="carta">
-
-                <div class="front">
-                    <div class="cover"></div>
-                </div>
-                <div class="back">
-                    
-                </div>
-
-        </div>
-
-        <div id="3" class="carta">
-
-                <div class="front">
-                    <div class="cover"></div>
-                </div>
-                <div class="back">
-                    
-                </div>
-
-        </div>
-
-        <div id="4" class="carta">
-
-                <div class="front">
-                    <div class="cover"></div>
-                </div>
-                <div class="back">
-                    
-                </div>
-
-        </div>
-
-        <div id="5" class="carta">
-
-                <div class="front">
-                    <div class="cover"></div>
-                </div>
-                <div class="back">
-                    
-                </div>
-            
-        </div>
-
-        <div id="6" class="carta">
-            
-                <div class="front">
-                    <div class="cover"></div>
-                </div>
-                <div class="back">
-                    
-                </div>
-            
-        </div>
-
-        <div id="7" class="carta">
-            
-                <div class="front">
-                    <div class="cover"></div>
-                </div>
-                <div class="back">
-                    
-                </div>
-            
-        </div>
-
-        <div id="8" class="carta">
-            
-                <div class="front">
-                    <div class="cover"></div>
-                </div>
-                <div class="back">
-                    
-                </div>
-            
-        </div> -->
-
-    </div><!--end contenedor-->
-
-    <!-- Popup de partida terminada -->
+    <!-- Popup de partida de jugador terminada -->
     <div id="popup">
         <div id="mensaje_popup">
-            <h1>¡Enhorabuena, <span id="mensaje_nombre"></span>! Has terminado el juego.</h1>
+            <h1>¡Enhorabuena, <span id="mensaje_nombre"></span>! Has completado tu turno.</h1>
             <p id="resultado-juego"></p>
+            <input type="button" id="boton_reinicio" value="Siguiente jugador" onclick="reiniciarJuego()">
+        </div> 
+    </div>
+
+    <!-- Popup de Juego terminado -->
+    <div id="popup_multijugador">
+        <div id="mensaje_multijugador">
+            <h1>¡Enhorabuena! El juego ha finalizado.</h1>
+            <p id="resultado-multijugador"></p>
+            <div id="posiciones">
+                
+            </div>
             <input type="button" id="boton_reinicio" value="Volver a inicio" onclick="location.reload()">
         </div> 
     </div>
@@ -160,9 +91,11 @@
     </div>
 
     <script src="modules/data.js"></script>
-    <script src="boton_inicio.js"></script>
-    <script src="crear-cartas.js"></script>
+    <script src="multijugador.js"></script>
+    <script src="crear-cartas.js"></script> 
     <script src="juego.js"></script>
+    <script src="inicio.js"></script>
+    
 
 </body>
 </html>
