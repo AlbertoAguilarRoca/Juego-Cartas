@@ -28,7 +28,7 @@ body {
     padding: 10px;
 }
 
-#boton_reinicio {
+#boton_reinicio, #boton_guardar {
     background-color: blue;
     color: white;
     font-size: large;
@@ -38,6 +38,10 @@ body {
     margin-top: 30px;
     margin-bottom: 20px;
     cursor: pointer;
+}
+
+#boton_guardar {
+    background-color: green;
 }
 
 #mensaje_popup, #mensaje_gameover, #mensaje_multijugador {
