@@ -24,8 +24,10 @@ function iniciarJuego() {
         settingsJuego();
         cartasCreadas = true;
     }
-    const mazo = JSON.parse(sessionStorage.getItem("mazo"));
-
+    //Obtiene el mazo del local storage con el status reseteado
+    const mazo = reiniciarStatus();
+    console.log(mazo);
+    console.log("Estado de Girada: "+girada);
     let carta1;
     let carta2;
 
@@ -33,6 +35,7 @@ function iniciarJuego() {
         item.addEventListener("click", function () {
             // Si una carta ha sido girada
             if (girada) {
+                console.log("Girada true, entrando en if "+girada);
                 // Guarda en la variable el id del div
                 carta2 = item.id;
                 // Primero comprueba que el status de la carta no sea true
@@ -50,6 +53,7 @@ function iniciarJuego() {
 
             // Si no se ha girado la primera carta
             else {
+                console.log("Girada false, entrando en else "+girada);
                 // Guarda en la variable el id del div
                 carta1 = item.id;
                 // Primero comprueba que el status de la carta no sea true
@@ -77,6 +81,9 @@ function girarCarta(id) {
 
 // Solo se comprueba si el id de las cartas dadas la vuelta sean iguales
 function comprobarCartas(mazo, carta1, carta2) {
+    console.log("Carta 1: "+carta1);
+    console.log("Carta 2: "+carta2);
+    
     if (mazo[carta1 - 1].id == mazo[carta2 - 1].id) {
         return true;
     }
@@ -237,7 +244,7 @@ function settingsJuego() {
     generarEstructuraCarta(dificultad.nCartas);
     //Genero un mazo en base al numero de cartas
     const mazo = duplicaCartas(generaCartas(dificultad.nCartas));
-    console.log(mazo);
+    
     //Guardo el mazo en la sesion para utilizarlo en multijuegador
     sessionStorage.setItem("mazo", JSON.stringify(mazo));
     //Recojo todas los divs donde van a estar alojadas las cartas
@@ -349,4 +356,15 @@ function compruebaNombresRellenos() {
         }
     });
     return nombresRellenos;
+}
+
+//Reinicia el status de las cartas a cero
+function reiniciarStatus() {
+    const mazo = JSON.parse(sessionStorage.getItem("mazo"));
+
+    mazo.forEach(function(carta) {
+        carta.status = false;
+    })
+
+    return mazo;
 }

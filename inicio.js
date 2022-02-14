@@ -48,9 +48,10 @@ function reiniciarJuego() {
     contenedor.style = "display: flex";
     contenedores.style = "display: initial";
     popup.style = "display: none";
+    gameover.style = "display: none";
 
     document.querySelectorAll('.carta').forEach(item => {
-       item.classList.remove('active');
+        item.classList.remove('active');
     });
     intentosDOM.innerText = '0';
     puntosDOM.innerText = '0';
@@ -59,11 +60,12 @@ function reiniciarJuego() {
 
     iniciarJuego();
     seteoDatosJugador(partidasJugadas);
+    console.log("Partidas jugadas dentro del reinicio: "+partidasJugadas);
 
     juegoIniciado = true;
 }
 
-setInterval(iniciarTemporizador, 1000);
+setInterval(iniciarTemporizador, 300);
 setInterval(incrementar, 1000);
 
 function incrementar() {
@@ -72,48 +74,48 @@ function incrementar() {
     var tempMinutos = '';
     var tempSegundos = '';
 
-    if(juegoIniciado) {
+    if (juegoIniciado) {
 
         segundosRestantes--;
 
-        if(segundos < 59) {
+        if (segundos < 59) {
             segundos++;
         } else {
             minutos++;
             segundos = 0;
         }
-    
-        if(minutos == 60) {
+
+        if (minutos == 60) {
             horas++;
             minutos = 0;
         }
 
-        if(horas < 10) { 
-            tempHoras = '0' + horas; 
+        if (horas < 10) {
+            tempHoras = '0' + horas;
         } else {
             tempHoras = horas
         }
 
-        if(minutos < 10) { 
-            tempMinutos = '0' + minutos; 
+        if (minutos < 10) {
+            tempMinutos = '0' + minutos;
         } else {
             tempMinutos = minutos;
         }
 
-        if(segundos < 10) { 
-            tempSegundos = '0' + segundos; 
+        if (segundos < 10) {
+            tempSegundos = '0' + segundos;
         } else {
             tempSegundos = segundos;
         }
-    
-        tiempoDOM.innerText = tempHoras + ':'+tempMinutos+':'+tempSegundos;
+
+        tiempoDOM.innerText = tempHoras + ':' + tempMinutos + ':' + tempSegundos;
     }
 
 }
 
 function iniciarTemporizador() {
 
-    if(juegoIniciado) {
+    if (juegoIniciado) {
 
         segs--;
 
@@ -123,19 +125,55 @@ function iniciarTemporizador() {
         }
 
         if (segs <= 9) {
-            regresivoDOM.innerText = '0'+mins+':0'+segs;
+            regresivoDOM.innerText = '0' + mins + ':0' + segs;
         }
         else {
-            regresivoDOM.innerText = '0'+mins+':'+segs;
+            regresivoDOM.innerText = '0' + mins + ':' + segs;
         }
 
         if (mins == 0 && segs == 0) {
             //Gameover por falta de tiempo
-            contenedor.style= "display: none";
-            contenedores.style= "display: none";
-            gameover.style = "display: flex";
+            endTimeGameOver();
         }
 
     }
+
+}
+
+function endTimeGameOver() {
+    girada = false;
+
+    var puntuacionTotal = 0;
+    const jugadores = JSON.parse(sessionStorage.getItem("jugadores"));
+
+    //recogemos los datos del jugador
+    jugadores[partidasJugadas].tiempo = tiempoDOM.innerText;
+    jugadores[partidasJugadas].puntos = puntuacionTotal;
+    jugadores[partidasJugadas].intentos = intentos;
+
+    partidasJugadas++;
+
+    juegoIniciado = false;
+    let fraseFinal = `Te has quedado sin tiempo. Tienes ${puntuacionTotal} puntos.`;
+
+    if (partidasJugadas == jugadores.length) {
+        //significa que ya han jugado todos los jugadores
+        juegoTerminado();
+        var mensajeFinal = document.getElementById('resultado-multijugador');
+        const posicionesFinales = document.getElementById('posiciones');
+        mensajeFinal.innerText = fraseFinal;
+        posicionesFinales.innerHTML = listaGanadores(jugadores);
+        sessionStorage.clear();
+    } else {
+        contenedor.style = "display: none";
+        contenedores.style = "display: none";
+        gameover.style = "display: flex";
+
+    }
+
+    console.log("Partidas jugadas al hacer gameOver: "+partidasJugadas);
+
+    //Actualizo la sesion con los datos de la partida
+    sessionStorage.setItem("jugadores", JSON.stringify(jugadores));
 
 }
