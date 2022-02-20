@@ -136,57 +136,50 @@ function comprobarJuegoFinalizado(mazo) {
     // Tambien se puede hacer con: 
     // var nCartas = document.querySelectorAll('.carta').length;
     var nCartas = mazo.length;
-    // Contador de todos los true que haya
-    var contadorAcertados = 0;
-    // Bucle que recorre el array buscando los true
-    for (let i = 0; i < nCartas; i++) {
-        if (mazo[i].status) {
-            contadorAcertados++;
-        }
+    
+    // Cuando el numero de puntos es igual al numero de cartas acaba el juego
+    // mostrando un popup con informacion del tiempo gastado y el numero de intentos
+    // Y un boton de reiniciar el juego
+    if (puntos == nCartas) {
+        
+        var puntuacionTotal = calculaPuntosTotales(nCartas);
+        const jugadores = JSON.parse(sessionStorage.getItem("jugadores"));
 
-        // Cuando todas las cartas tienen true acaba el juego
-        // mostrando un popup con informacion del tiempo gastado y el numero de intentos
-        // Y un boton de reiniciar el juego
-        if (contadorAcertados == nCartas) {
-            
-            var puntuacionTotal = calculaPuntosTotales(nCartas);
-            const jugadores = JSON.parse(sessionStorage.getItem("jugadores"));
+        //recogemos los datos del jugador
+        jugadores[partidasJugadas].tiempo = tiempoDOM.innerText;
+        jugadores[partidasJugadas].puntos = puntuacionTotal;
+        jugadores[partidasJugadas].intentos = intentos;
 
-            //recogemos los datos del jugador
-            jugadores[partidasJugadas].tiempo = tiempoDOM.innerText;
-            jugadores[partidasJugadas].puntos = puntuacionTotal;
-            jugadores[partidasJugadas].intentos = intentos;
+        partidasJugadas++;
 
-            partidasJugadas++;
+        juegoIniciado = false;
+        let fraseFinal = `Has completado el juego en un tiempo de ${tiempoDOM.innerText}, 
+        quedando ${regresivoDOM.innerHTML} y 
+        utilizando ${intentos} intentos por lo que tu puntuacion total es de ${puntuacionTotal} puntos.`;
 
-            juegoIniciado = false;
-            let fraseFinal = `Has completado el juego en un tiempo de ${tiempoDOM.innerText}, 
-            quedando ${regresivoDOM.innerHTML} y 
-            utilizando ${intentos} intentos por lo que tu puntuacion total es de ${puntuacionTotal} puntos.`;
+        if (partidasJugadas == jugadores.length) {
+            //significa que ya han jugado todos los jugadores
+            juegoTerminado();
+            var mensajeFinal = document.getElementById('resultado-multijugador');
+            const posicionesFinales = document.getElementById('posiciones');
+            mensajeFinal.innerText = fraseFinal;
+            posicionesFinales.innerHTML = listaGanadores(jugadores);
+            sessionStorage.clear();
+        } else {
+            contenedor.style = "display: none";
+            contenedores.style = "display: none";
+            popup.style = "display: flex";
 
-            if (partidasJugadas == jugadores.length) {
-                //significa que ya han jugado todos los jugadores
-                juegoTerminado();
-                var mensajeFinal = document.getElementById('resultado-multijugador');
-                const posicionesFinales = document.getElementById('posiciones');
-                mensajeFinal.innerText = fraseFinal;
-                posicionesFinales.innerHTML = listaGanadores(jugadores);
-                sessionStorage.clear();
-            } else {
-                contenedor.style = "display: none";
-                contenedores.style = "display: none";
-                popup.style = "display: flex";
-
-                var mensajeFinal = document.getElementById('resultado-juego');
-                mensajeFinal.innerText = fraseFinal;
-
-            }
-
-            //Actualizo la sesion con los datos de la partida
-            sessionStorage.setItem("jugadores", JSON.stringify(jugadores));
+            var mensajeFinal = document.getElementById('resultado-juego');
+            mensajeFinal.innerText = fraseFinal;
 
         }
+
+        //Actualizo la sesion con los datos de la partida
+        sessionStorage.setItem("jugadores", JSON.stringify(jugadores));
+
     }
+    
 
 }
 
